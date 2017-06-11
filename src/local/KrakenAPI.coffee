@@ -2,9 +2,11 @@ Request = require 'request-promise-native'
 Path = require 'path'
 { URL } = require 'url'
 
+KrakenResponse = require './KrakenResponse'
+
 API = 'https://api.kraken.com'
 APIVERSION = 0
-TIMEOUT = 5000
+TIMEOUT = 20000
 
 class KrakenAPI
 
@@ -13,7 +15,6 @@ class KrakenAPI
 
   api: ->
     @headers['User-Agent'] = 'Kraken Exchange Node Client'
-    console.log 'HEADERS', @headers
     Request
       method: 'POST'
       url: @url
@@ -21,12 +22,6 @@ class KrakenAPI
       form: @form
       timeout: TIMEOUT
     .then (response) ->
-      response = JSON.parse response
-      throw new Error response.error if response.error.length
-      response.result
-
-class KrakenPrivate extends KrakenAPI
-
-  constructor: (key, secret, method, params) ->
+      new KrakenResponse response
 
 module.exports = KrakenAPI

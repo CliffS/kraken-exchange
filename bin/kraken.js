@@ -15,20 +15,174 @@
     time() {
       var krak;
       krak = new KrakenPublic('Time');
-      return krak.api().then(function(result) {
-        return console.log("Result:", result);
-      }).catch(function(err) {
-        return console.log("Caught:", err);
+      return krak.api().then(function(response) {
+        return response.result;
       });
     }
 
-    tradeBalance() {
+    assets(...assets) {
       var krak;
-      krak = new KrakenPrivate('TradeBalance', this.api_key, this.private_key);
-      return krak.api().then(function(result) {
-        return console.log("Result:", result);
-      }).catch(function(err) {
-        return console.log("Caught:", err);
+      if (Array.isArray(assets[0])) {
+        assets = assets[0];
+      }
+      assets = assets.join(',');
+      krak = new KrakenPublic('Assets', {
+        asset: assets
+      });
+      return krak.api().then(function(response) {
+        return response.result;
+      });
+    }
+
+    assetPairs(...pairs) {
+      var krak;
+      if (Array.isArray(pairs[0])) {
+        pairs = pairs[0];
+      }
+      pairs = pairs.join(',');
+      krak = new KrakenPublic('AssetPairs', {
+        pair: pairs
+      });
+      return krak.api().then(function(response) {
+        return response.pair().result;
+      });
+    }
+
+    ticker(...pairs) {
+      var krak;
+      if (Array.isArray(pairs[0])) {
+        pairs = pairs[0];
+      }
+      pairs = pairs.join(',');
+      krak = new KrakenPublic('Ticker', {
+        pair: pairs
+      });
+      return krak.api().then(function(response) {
+        return response.pair().result;
+      });
+    }
+
+    ohlc(pair, interval, last) {
+      var krak, options;
+      options = {
+        pair: pair
+      };
+      if (interval) {
+        options.interval = interval;
+      }
+      if (last) {
+        options.last = last;
+      }
+      krak = new KrakenPublic('OHLC', options);
+      return krak.api().then(function(response) {
+        return response.pair().result;
+      });
+    }
+
+    depth(pair, count) {
+      var krak, options;
+      options = {
+        pair: pair
+      };
+      if (count) {
+        options.count = count;
+      }
+      krak = new KrakenPublic('Depth', options);
+      return krak.api().then(function(response) {
+        return response.pair().result;
+      });
+    }
+
+    trades(pair, since) {
+      var krak, options;
+      options = {
+        pair: pair
+      };
+      if (since) {
+        options.since = since;
+      }
+      krak = new KrakenPublic('Trades', options);
+      return krak.api().then(function(response) {
+        return response.pair().result;
+      });
+    }
+
+    spread(pair, since) {
+      var krak, options;
+      options = {
+        pair: pair
+      };
+      if (since) {
+        options.since = since;
+      }
+      krak = new KrakenPublic('Spread', options);
+      return krak.api().then(function(response) {
+        return response.pair().result;
+      });
+    }
+
+    balance() {
+      var krak;
+      krak = new KrakenPrivate('Balance', this.api_key, this.private_key);
+      return krak.api().then(function(response) {
+        return response.float().currency().result;
+      });
+    }
+
+    tradeBalance(currency, aclass) {
+      var krak, params;
+      params = {};
+      if (aclass) {
+        params.aclass = aclass;
+      }
+      if (currency) {
+        params.asset = currency;
+      }
+      krak = new KrakenPrivate('TradeBalance', this.api_key, this.private_key, params);
+      return krak.api().then((response) => {
+        return response.float().result;
+      });
+    }
+
+    openOrders(trades, userref) {
+      var krak, params;
+      params = {};
+      if (trades != null) {
+        params.trades = trades;
+      }
+      if (userref) {
+        params.userref = userref;
+      }
+      krak = new KrakenPrivate('OpenOrders', this.api_key, this.private_key, params);
+      return krak.api().then((response) => {
+        return response.result;
+      });
+    }
+
+    closedOrders(trades, userref, start, end, ofs, closetime) {
+      var krak, params;
+      params = {};
+      if (trades != null) {
+        params.trades = trades;
+      }
+      if (userref) {
+        params.userref = userref;
+      }
+      if (start) {
+        params.start = start;
+      }
+      if (end) {
+        params.end = end;
+      }
+      if (ofs) {
+        params.ofs = ofs;
+      }
+      if (closetime) {
+        params.closetime = closetime;
+      }
+      krak = new KrakenPrivate('ClosedOrders', this.api_key, this.private_key, params);
+      return krak.api().then((response) => {
+        return response.result;
       });
     }
 

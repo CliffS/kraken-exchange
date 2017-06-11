@@ -6,7 +6,6 @@ Crypto = require 'crypto'
 NONCE = new Date().valueOf() * 1000
 
 sign = (path, secret, params) ->
-  console.log "PARAMS", params
   message = Querystring.stringify params
   secret = Buffer.from secret, 'base64'
   hash = Crypto.createHash 'sha256'
@@ -27,7 +26,6 @@ class KrakenPrivate extends KrakenAPI
   api: ->
     @form.nonce = NONCE++
     path = @url.pathname
-    console.log 'PATH', path
     sig = sign path, @secret, @form
     @headers['API-Sign'] = sig
     super()
