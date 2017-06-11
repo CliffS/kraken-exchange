@@ -105,5 +105,92 @@ class Kraken
     .then (response) =>
       response.result
 
+  queryOrders: (txids, trades, userref) ->
+    txids = [ txids ] unless Array.isArray txids
+    params = txid: txids.join ','
+    params.trades = trades if trades?
+    params.userref = userref if userref
+    krak = new KrakenPrivate 'QueryOrders', @api_key, @private_key, params
+    krak.api()
+    .then (response) =>
+      response.result
+
+  tradesHistory: (type, trades, start, end, ofs) ->
+    params = {}
+    params.type = type if type?
+    params.trades = trades if trades?
+    params.start = start if start
+    params.end = end if end
+    params.ofs = ofs if ofs
+    krak = new KrakenPrivate 'TradesHistory', @api_key, @private_key, params
+    krak.api()
+    .then (response) =>
+      response.result
+
+  queryTrades: (txids, trades) ->
+    txids = [ txids ] unless Array.isArray txids
+    params = txid: txids.join ','
+    params.trades = trades if trades?
+    krak = new KrakenPrivate 'QueryTrades', @api_key, @private_key, params
+    krak.api()
+    .then (response) =>
+      response.result
+
+  openPositions: (docalcs, txids) ->
+    params = {}
+    if txids?
+      txids = [ txids ] unless Array.isArray txids
+      params.txid = txids.join ','
+    params.docalcs = docalcs if docalcs?
+    krak = new KrakenPrivate 'OpenPositions', @api_key, @private_key, params
+    krak.api()
+    .then (response) =>
+      response.result
+
+  profitLoss: ->
+    @openPositions true
+    .then (result) ->
+      profits = {}
+      for key, item of result
+        currency = item.pair.substr(-4).replace /^[XZ]/, ''
+        profits[currency] ?= 0
+        profits[currency] += parseFloat item.net
+      profits
+
+  ledgers: (assets, type, start, end, ofs, aclass) ->
+    params = {}
+    if assets?
+      assets = [ assets ] unless Array.isArray assets
+      params.asset = assets.join ','
+    params.type = type if type
+    params.start = start if start
+    params.end = end if end
+    params.ofs = ofs if ofs
+    params.aclass = aclass if aclass
+    krak = new KrakenPrivate 'Ledgers', @api_key, @private_key, params
+    krak.api()
+    .then (response) =>
+      response.result
+
+  queryLedgers: (ids...) ->
+    ids = ids[0] if Array.isArray ids[0]
+    params = id: ids.join ','
+    krak = new KrakenPrivate 'QueryLedgers', @api_key, @private_key, params
+    krak.api()
+    .then (response) =>
+      response.result
+
+  tradeVolume: (pairs...) ->
+    params = 'fee-info': true
+    pairs = pairs[0] if Array.isArray pairs[0]
+    params.pair = pairs.join ',' if pairs.length > 0
+    krak = new KrakenPrivate 'TradeVolume', @api_key, @private_key, params
+    krak.api()
+    .then (response) =>
+      response.result
+
+
+
+
 
 module.exports = Kraken

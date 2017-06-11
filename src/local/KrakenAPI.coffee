@@ -23,5 +23,7 @@ class KrakenAPI
       timeout: TIMEOUT
     .then (response) ->
       new KrakenResponse response
+    .catch (err) ->
+      throw new Error err
 
 module.exports = KrakenAPI

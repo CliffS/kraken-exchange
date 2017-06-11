@@ -12,12 +12,12 @@
 
   k = new Kraken(API_KEY, PRIV_KEY);
 
-  Promise.all([k.time(), k.balance(), k.tradeBalance('EUR'), k.openOrders(), k.closedOrders()]).then((results) => {
+  Promise.all([k.time(), k.tradeVolume('XBTEUR', 'ETHXBT')]).then((results) => {
     return console.log(Util.inspect(results, {
       depth: null
     }));
   }).catch((err) => {
-    return console.error('Error:', err);
+    return console.log('Error:', err);
   });
 
 }).call(this);

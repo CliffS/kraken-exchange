@@ -4,6 +4,11 @@ class KrakenResponse
 
   constructor: (response) ->
     result =  JSON.parse response
+    if result.error.length
+      console.log 'LENGTH', result.error.length
+      console.log 'TYPE', typeof result.error[0]
+      console.log result.error
+      process.exit()
     throw new Error result.error[0] if result.error.length
     @result = result.result
 

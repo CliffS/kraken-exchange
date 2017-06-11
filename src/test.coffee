@@ -19,12 +19,20 @@ Promise.all [
   #k.depth('XBTEUR')
   #k.trades('XBTEUR')
   #k.spread('XBTEUR')
-  k.balance()
-  k.tradeBalance('EUR')
-  k.openOrders()
-  k.closedOrders()
+  #k.balance()
+  #k.tradeBalance('EUR')
+  #k.openOrders()
+  #k.closedOrders()
+  #k.queryOrders('OECJU4-OTPPP-WX6MED')
+  #k.tradesHistory 'no position'
+  #k.queryTrades 'TZAVYC-W5T5U-IPDVZO'
+  #k.openPositions()
+  #k.profitLoss()
+  #k.ledgers()
+  #k.queryLedgers 'LEQFDR-QMVZ6-DJMUKM', 'LQ3OO6-PLZ74-DTPYN7'
+  k.tradeVolume 'XBTEUR', 'ETHXBT'
 ]
 .then (results) =>
   console.log Util.inspect results, depth: null
 .catch (err) =>
-  console.error 'Error:', err
+  console.log 'Error:', err
