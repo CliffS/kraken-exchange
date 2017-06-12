@@ -59,3 +59,6 @@ typings/
 
 # vim temporary files
 .*.sw?
+
+# Javascript files
+lib

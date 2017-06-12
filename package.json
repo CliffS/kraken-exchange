@@ -2,10 +2,13 @@
   "name": "kraken-exchange",
   "version": "1.0.0",
   "description": "Simple library to access the Kraken Exchange API",
+  "homepage": "https://github.com/CliffS/kraken-exchange.git",
   "main": "bin/kraken.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "coffee -c -w -o bin src &"
+    "watch": "coffee -c -w -o lib src &",
+    "compile": "coffee -c -o lib src",
+    "prepublish": "npm run-script compile"
   },
   "repository": {
     "type": "git",
@@ -16,7 +19,10 @@
     "bitcoin",
     "api"
   ],
-  "author": "Cliff Stanford",
+  "author": {
+      "name": "Cliff Stanford",
+      "email": "cliff@may.be"
+  },
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/CliffS/kraken-exchange/issues"
