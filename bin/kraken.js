@@ -12,6 +12,13 @@
       this.private_key = private_key;
     }
 
+
+    /*
+     *
+     * Public market data
+     *
+     */
+
     time() {
       var krak;
       krak = new KrakenPublic('Time');
@@ -120,6 +127,13 @@
         return response.pair().result;
       });
     }
+
+
+    /*
+     *
+     * Private user data
+     *
+     */
 
     balance() {
       var krak;
@@ -266,7 +280,7 @@
     }
 
     profitLoss() {
-      return this.openPositions(true).then(function(result) {
+      return this.openPositions(true).then((result) => {
         var currency, item, key, profits;
         profits = {};
         for (key in result) {
@@ -337,6 +351,65 @@
         params.pair = pairs.join(',');
       }
       krak = new KrakenPrivate('TradeVolume', this.api_key, this.private_key, params);
+      return krak.api().then((response) => {
+        return response.result;
+      });
+    }
+
+
+    /*
+     *
+     * Private user trading
+     *
+     */
+
+    addOrder(pair, type, ordertype, volume, price, price2, leverage, oflags, starttm, expiretm, userref, valdate, closetype, closeprice, closeprice2) {
+      var krak, params;
+      if (pair === Object(pair)) {
+        params = pair;
+      } else {
+        params = {pair, type, ordertype, volume};
+        if (price != null) {
+          params.price = price;
+        }
+        if (price2 != null) {
+          params.price2 = price2;
+        }
+        if (leverage != null) {
+          params.leverage = leverage;
+        }
+        params.oflags = Array.isArray(oflags) ? oflags.join(',') : oflags;
+        if (starttm != null) {
+          params.starttm = starttm;
+        }
+        if (expiretm != null) {
+          params.expiretm = expiretm;
+        }
+        if (userref != null) {
+          params.userref = userref;
+        }
+        if (typeof validate !== "undefined" && validate !== null) {
+          params.validate = validate;
+        }
+        if (closetype != null) {
+          params['close[ordertype]'] = closetype;
+          params['close[price]'] = closeprice;
+          if (closeprice2 != null) {
+            params['close[price2]'] = closeprice2;
+          }
+        }
+      }
+      krak = new KrakenPrivate('AddOrder', this.api_key, this.private_key, params);
+      return krak.api().then((response) => {
+        return response.result;
+      });
+    }
+
+    cancelOrder(txid) {
+      var krak;
+      krak = new KrakenPrivate('AddOrder', this.api_key, this.private_key, {
+        txid: txid
+      });
       return krak.api().then((response) => {
         return response.result;
       });

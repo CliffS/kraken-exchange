@@ -4,6 +4,6 @@ class KrakenPublic extends KrakenAPI
 
   constructor: (method, params) ->
     path = "public/#{method}"
-    super path, {}, params
+    super path, undefined, params
 
 module.exports = KrakenPublic

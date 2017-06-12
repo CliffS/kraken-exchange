@@ -5,6 +5,12 @@ class Kraken
 
   constructor: (@api_key, @private_key) ->
 
+  ###
+  #
+  # Public market data
+  #
+  ###
+
   time: ->
     krak = new KrakenPublic 'Time'
     krak.api()
@@ -67,6 +73,12 @@ class Kraken
     krak.api()
     .then (response) ->
       response.pair().result
+
+  ###
+  #
+  # Private user data
+  #
+  ###
 
   balance: ->
     krak = new KrakenPrivate 'Balance', @api_key, @private_key
@@ -149,7 +161,7 @@ class Kraken
 
   profitLoss: ->
     @openPositions true
-    .then (result) ->
+    .then (result) =>
       profits = {}
       for key, item of result
         currency = item.pair.substr(-4).replace /^[XZ]/, ''
@@ -189,7 +201,47 @@ class Kraken
     .then (response) =>
       response.result
 
+  ###
+  #
+  # Private user trading
+  #
+  ###
 
+  addOrder: (pair, type, ordertype, volume, price, price2, leverage,
+    oflags, starttm, expiretm, userref, valdate,
+    closetype, closeprice, closeprice2 ) ->
+    # if the first parameter is an abject, use that as params
+    if pair is Object pair
+      params = pair
+    else
+      params = {
+      pair
+      type
+      ordertype
+      volume
+      }
+      params.price = price if price?
+      params.price2 = price2 if price2?
+      params.leverage = leverage if leverage?
+      params.oflags = if Array.isArray oflags then oflags.join ',' else oflags
+      params.starttm = starttm if starttm?
+      params.expiretm = expiretm if expiretm?
+      params.userref = userref if userref?
+      params.validate = validate if validate?
+      if closetype?
+        params['close[ordertype]'] = closetype
+        params['close[price]'] = closeprice
+        params['close[price2]'] = closeprice2 if closeprice2?
+    krak = new KrakenPrivate 'AddOrder', @api_key, @private_key, params
+    krak.api()
+    .then (response) =>
+      response.result
+
+  cancelOrder: (txid) ->
+    krak = new KrakenPrivate 'AddOrder', @api_key, @private_key, txid: txid
+    krak.api()
+    .then (response) =>
+      response.result
 
 
 
