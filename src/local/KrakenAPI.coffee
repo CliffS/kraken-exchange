@@ -6,7 +6,7 @@ KrakenResponse = require './KrakenResponse'
 
 API = 'https://api.kraken.com'
 APIVERSION = 0
-TIMEOUT = 20000
+TIMEOUT = 30000
 
 class KrakenAPI
 

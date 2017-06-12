@@ -12,7 +12,8 @@
 
   k = new Kraken(API_KEY, PRIV_KEY);
 
-  Promise.all([k.time(), k.tradeVolume('XBTEUR', 'ETHXBT')]).then((results) => {
+  Promise.all([k.time(), k.assetPairs(['XBTEUR', 'ETHEUR']), k.balance(), k.tradesHistory('no position'), k.openPositions(), k.profitLoss()]).then((results) => {
+    console.log('---------------------------------------------');
     return console.log(Util.inspect(results, {
       depth: null
     }));

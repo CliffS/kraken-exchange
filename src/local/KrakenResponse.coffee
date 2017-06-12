@@ -1,8 +1,9 @@
+Property = require './Property'
 
-
-class KrakenResponse
+class KrakenResponse extends Property
 
   constructor: (response) ->
+    super()
     result =  JSON.parse response
     if result.error.length
       console.log 'LENGTH', result.error.length
@@ -10,27 +11,30 @@ class KrakenResponse
       console.log result.error
       process.exit()
     throw new Error result.error[0] if result.error.length
-    @result = result.result
+    @_result = result.result
 
   float: ->
     @result[key] = parseFloat val for key, val of @result
     @
 
-  currency: ->
-    obj = {}
-    for key, val of @result
-      key = key.replace /^[XZ]([A-Z]{3})$/, '$1'
-      obj[key] = val
-    @result = obj
-    @
+  @property 'result',
+    get: ->
+      @fixup @_result
 
-  pair: ->
+  fixup: (item) ->
+    return item unless item is Object item
+    # console.log 'FIXUP', item
     obj = {}
-    for key, val of @result
-      key = key.replace /^[XZ]([A-Z]{3})/, '$1'
-      key = key.replace /[XZ]([A-Z]{3})$/, '$1'
-      obj[key] = val
-    @result = obj
-    @
+    for key, val of item
+      key = key.replace(/^[XZ]([A-Z]{3})/, '$1').replace /[XZ]([A-Z]{3})$/, '$1'
+      obj[key] = switch key
+        when 'asset', 'base', 'quote'
+          val.replace /^[XZ]([A-Z]{3})$/, '$1'
+        when 'pair'
+          val.replace(/^[XZ]([A-Z]{3})/, '$1').replace /[XZ]([A-Z]{3})$/, '$1'
+        else
+          @fixup val
+    # console.log 'FIXED', obj
+    obj
 
 module.exports = KrakenResponse

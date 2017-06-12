@@ -22,7 +22,7 @@
     time() {
       var krak;
       krak = new KrakenPublic('Time');
-      return krak.api().then(function(response) {
+      return krak.api().then((response) => {
         return response.result;
       });
     }
@@ -36,7 +36,7 @@
       krak = new KrakenPublic('Assets', {
         asset: assets
       });
-      return krak.api().then(function(response) {
+      return krak.api().then((response) => {
         return response.result;
       });
     }
@@ -50,8 +50,8 @@
       krak = new KrakenPublic('AssetPairs', {
         pair: pairs
       });
-      return krak.api().then(function(response) {
-        return response.pair().result;
+      return krak.api().then((response) => {
+        return response.result;
       });
     }
 
@@ -64,8 +64,8 @@
       krak = new KrakenPublic('Ticker', {
         pair: pairs
       });
-      return krak.api().then(function(response) {
-        return response.pair().result;
+      return krak.api().then((response) => {
+        return response.result;
       });
     }
 
@@ -81,8 +81,8 @@
         options.last = last;
       }
       krak = new KrakenPublic('OHLC', options);
-      return krak.api().then(function(response) {
-        return response.pair().result;
+      return krak.api().then((response) => {
+        return response.result;
       });
     }
 
@@ -95,8 +95,8 @@
         options.count = count;
       }
       krak = new KrakenPublic('Depth', options);
-      return krak.api().then(function(response) {
-        return response.pair().result;
+      return krak.api().then((response) => {
+        return response.result;
       });
     }
 
@@ -109,8 +109,8 @@
         options.since = since;
       }
       krak = new KrakenPublic('Trades', options);
-      return krak.api().then(function(response) {
-        return response.pair().result;
+      return krak.api().then((response) => {
+        return response.result;
       });
     }
 
@@ -123,8 +123,8 @@
         options.since = since;
       }
       krak = new KrakenPublic('Spread', options);
-      return krak.api().then(function(response) {
-        return response.pair().result;
+      return krak.api().then((response) => {
+        return response.result;
       });
     }
 
@@ -138,8 +138,8 @@
     balance() {
       var krak;
       krak = new KrakenPrivate('Balance', this.api_key, this.private_key);
-      return krak.api().then(function(response) {
-        return response.float().currency().result;
+      return krak.api().then((response) => {
+        return response.float().result;
       });
     }
 
@@ -407,9 +407,47 @@
 
     cancelOrder(txid) {
       var krak;
-      krak = new KrakenPrivate('AddOrder', this.api_key, this.private_key, {
+      krak = new KrakenPrivate('CancelOrder', this.api_key, this.private_key, {
         txid: txid
       });
+      return krak.api().then((response) => {
+        return response.result;
+      });
+    }
+
+
+    /*
+     *
+     * Private user funding
+     *
+     */
+
+    depositMethods(asset) {
+      var krak;
+      krak = new KrakenPrivate('DepositMethods', this.api_key, this.private_key, {
+        asset: asset
+      });
+      return krak.api().then((response) => {
+        return response.result;
+      });
+    }
+
+    depositAddresses(asset, method, newAddress) {
+      var krak, params;
+      params = {asset, method};
+      if (newAddress != null) {
+        params.new = newAddress;
+      }
+      krak = new KrakenPrivate('DepositAddresses', this.api_key, this.private_key, params);
+      return krak.api().then((response) => {
+        return response.result;
+      });
+    }
+
+    depositStatus(asset, method) {
+      var krak, params;
+      params = {asset, method};
+      krak = new KrakenPrivate('DepositStatus', this.api_key, this.private_key, params);
       return krak.api().then((response) => {
         return response.result;
       });

@@ -14,7 +14,7 @@ class Kraken
   time: ->
     krak = new KrakenPublic 'Time'
     krak.api()
-    .then (response) ->
+    .then (response) =>
       response.result
 
   assets: (assets...) ->
@@ -22,7 +22,7 @@ class Kraken
     assets = assets.join ','
     krak = new KrakenPublic 'Assets' , asset: assets
     krak.api()
-    .then (response) ->
+    .then (response) =>
       response.result
 
   assetPairs: (pairs...) ->
@@ -30,16 +30,16 @@ class Kraken
     pairs = pairs.join ','
     krak = new KrakenPublic 'AssetPairs' , pair: pairs
     krak.api()
-    .then (response) ->
-      response.pair().result
+    .then (response) =>
+      response.result
 
   ticker: (pairs...) ->
     pairs = pairs[0] if Array.isArray pairs[0]
     pairs = pairs.join ','
     krak = new KrakenPublic 'Ticker' , pair: pairs
     krak.api()
-    .then (response) ->
-      response.pair().result
+    .then (response) =>
+      response.result
 
   ohlc: (pair, interval, last) ->
     options = pair: pair
@@ -47,32 +47,32 @@ class Kraken
     options.last = last if last
     krak = new KrakenPublic 'OHLC', options
     krak.api()
-    .then (response) ->
-      response.pair().result
+    .then (response) =>
+      response.result
 
   depth: (pair, count) ->
     options = pair: pair
     options.count = count if count
     krak = new KrakenPublic 'Depth', options
     krak.api()
-    .then (response) ->
-      response.pair().result
+    .then (response) =>
+      response.result
 
   trades: (pair, since) ->
     options = pair: pair
     options.since = since if since
     krak = new KrakenPublic 'Trades', options
     krak.api()
-    .then (response) ->
-      response.pair().result
+    .then (response) =>
+      response.result
 
   spread: (pair, since) ->
     options = pair: pair
     options.since = since if since
     krak = new KrakenPublic 'Spread', options
     krak.api()
-    .then (response) ->
-      response.pair().result
+    .then (response) =>
+      response.result
 
   ###
   #
@@ -83,8 +83,8 @@ class Kraken
   balance: ->
     krak = new KrakenPrivate 'Balance', @api_key, @private_key
     krak.api()
-    .then (response) ->
-      response.float().currency().result
+    .then (response) =>
+      response.float().result
 
   tradeBalance: (currency, aclass) ->
     params = {}
@@ -238,7 +238,40 @@ class Kraken
       response.result
 
   cancelOrder: (txid) ->
-    krak = new KrakenPrivate 'AddOrder', @api_key, @private_key, txid: txid
+    krak = new KrakenPrivate 'CancelOrder', @api_key, @private_key, txid: txid
+    krak.api()
+    .then (response) =>
+      response.result
+
+  ###
+  #
+  # Private user funding
+  #
+  ###
+
+  depositMethods: (asset) ->
+    krak = new KrakenPrivate 'DepositMethods', @api_key, @private_key, asset: asset
+    krak.api()
+    .then (response) =>
+      response.result
+
+  depositAddresses: (asset, method, newAddress) ->
+    params = {
+      asset
+      method
+    }
+    params.new = newAddress if newAddress?
+    krak = new KrakenPrivate 'DepositAddresses', @api_key, @private_key, params
+    krak.api()
+    .then (response) =>
+      response.result
+
+  depositStatus: (asset, method) ->
+    params = {
+      asset
+      method
+    }
+    krak = new KrakenPrivate 'DepositStatus', @api_key, @private_key, params
     krak.api()
     .then (response) =>
       response.result
