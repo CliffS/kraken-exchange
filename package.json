@@ -2,13 +2,13 @@
   "name": "kraken-exchange",
   "version": "1.0.0",
   "description": "Simple library to access the Kraken Exchange API",
-  "homepage": "https://github.com/CliffS/kraken-exchange.git",
+  "homepage": "https://github.com/CliffS/kraken-exchange#readme",
   "main": "bin/kraken.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "coffee -c -w -o lib src &",
     "compile": "coffee -c -o lib src",
-    "prepublish": "npm run-script compile"
+    "prepublishOnly": "npm run-script compile"
   },
   "repository": {
     "type": "git",
@@ -20,16 +20,18 @@
     "api"
   ],
   "author": {
-      "name": "Cliff Stanford",
-      "email": "cliff@may.be"
+    "name": "Cliff Stanford",
+    "email": "cliff@may.be"
   },
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/CliffS/kraken-exchange/issues"
   },
-  "homepage": "https://github.com/CliffS/kraken-exchange#readme",
   "dependencies": {
     "request": "^2.81.0",
     "request-promise-native": "^1.0.4"
+  },
+  "devDependencies": {
+    "coffeescript": "^2.0.0-beta2"
   }
 }
