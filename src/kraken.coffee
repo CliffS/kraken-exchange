@@ -41,6 +41,15 @@ class Kraken
     .then (response) =>
       response.result
 
+  bidAsk: (pairs...) ->
+    @ticker (pairs)
+    .then (result) ->
+      obj = {}
+      for pair, data of result
+        obj[pair] = (parseFloat(data.a[0]) + parseFloat(data.b[0])) / 2
+      obj
+
+
   ohlc: (pair, interval, last) ->
     options = pair: pair
     options.interval = interval if interval
@@ -164,7 +173,7 @@ class Kraken
     .then (result) =>
       profits = {}
       for key, item of result
-        currency = item.pair.substr(-4).replace /^[XZ]/, ''
+        currency = item.pair.substr -3
         profits[currency] ?= 0
         profits[currency] += parseFloat item.net
       profits

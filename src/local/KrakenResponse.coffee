@@ -14,7 +14,7 @@ class KrakenResponse extends Property
     @_result = result.result
 
   float: ->
-    @result[key] = parseFloat val for key, val of @result
+    @_result[key] = parseFloat val for key, val of @_result
     @
 
   @property 'result',

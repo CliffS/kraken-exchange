@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Simple library to access the Kraken Exchange API",
   "homepage": "https://github.com/CliffS/kraken-exchange#readme",
-  "main": "bin/kraken.js",
+  "main": "lib/kraken.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "coffee -c -w -o lib src &",
