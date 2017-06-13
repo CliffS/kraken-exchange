@@ -23,6 +23,7 @@ class KrakenResponse extends Property
 
   fixup: (item) ->
     return item unless item is Object item
+    return item if Array.isArray item
     # console.log 'FIXUP', item
     obj = {}
     for key, val of item
