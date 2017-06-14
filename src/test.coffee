@@ -1,4 +1,4 @@
-#!/usr/local/bin/coffee
+!/usr/local/bin/coffee
 #
 
 Util = require 'util'
