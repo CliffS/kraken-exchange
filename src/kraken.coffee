@@ -95,9 +95,8 @@ class Kraken
     .then (response) =>
       response.float().result
 
-  tradeBalance: (currency, aclass) ->
+  tradeBalance: (currency) ->
     params = {}
-    params.aclass = aclass if aclass
     params.asset = currency if currency
     krak = new KrakenPrivate 'TradeBalance', @api_key, @private_key, params
     krak.api()
@@ -178,7 +177,7 @@ class Kraken
         profits[currency] += parseFloat item.net
       profits
 
-  ledgers: (assets, type, start, end, ofs, aclass) ->
+  ledgers: (assets, type, start, end, ofs) ->
     params = {}
     if assets?
       assets = [ assets ] unless Array.isArray assets
@@ -187,7 +186,6 @@ class Kraken
     params.start = start if start
     params.end = end if end
     params.ofs = ofs if ofs
-    params.aclass = aclass if aclass
     krak = new KrakenPrivate 'Ledgers', @api_key, @private_key, params
     krak.api()
     .then (response) =>
@@ -285,6 +283,46 @@ class Kraken
     .then (response) =>
       response.result
 
+  withdrawInfo: (asset, key, amount) ->
+    params = {
+      asset
+      key
+      amount
+    }
+    krak = new KrakenPrivate 'WithdrawInfo', @api_key, @private_key, params
+    krak.api()
+    .then (response) =>
+      response.result
+
+  withdraw: (asset, key, amount) ->
+    params = {
+      asset
+      key
+      amount
+    }
+    krak = new KrakenPrivate 'Withdraw', @api_key, @private_key, params
+    krak.api()
+    .then (response) =>
+      response.result
+
+
+  withdrawStatus: (asset, method) ->
+    params = asset: asset
+    params.method = method if method?
+    krak = new KrakenPrivate 'WithdrawStatus', @api_key, @private_key, params
+    krak.api()
+    .then (response) =>
+      response.result
+
+  withdrawCancel: (asset, refid) ->
+    params = {
+      asset
+      refid
+    }
+    krak = new KrakenPrivate 'WithdrawCancel', @api_key, @private_key, params
+    krak.api()
+    .then (response) =>
+      response.result
 
 
 module.exports = Kraken
