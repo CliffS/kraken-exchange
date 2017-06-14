@@ -29,9 +29,11 @@ another method.  Examples are `kraken.profitloss()` and `kraken.bidAsk()`.
 
 ## Install
 
+```
 npm install kraken-exchange
+```
 
-Get your API key and pivate key from [here][apikey]
+Get your API key and private key from [here][apikey].
 
 ## Example
 
@@ -65,11 +67,11 @@ may be returned as floats rather than strings.
 
 All methods return Promises and pass a single result object
 to the `.then()`. Optional parameters are shown within square
-brakets: `[` and `]`.  It may be necessary to pass a `null` for
+brackets: `[` and `]`.  It may be necessary to pass a `null` for
 some parameters in order to pass later ones.
 
 **N.B.** The order of parameters in methods is as below which may differ
-from the Kraken documentation in order to put less used parameters
+from the Kraken documentation in order to put less-used parameters
 twards the end of the list.
 
 ### Derived methods
@@ -227,6 +229,9 @@ transaction ids or a comma-separated list of transaction ids.
 ```javascript
 kraken.ledgers([assets[, type[, start[, end[, ofs]]]]])
 ```
+
+Note that `assets` can be a single asset, an array of
+assets, a comma-separated list of assets or `undefined`.
 
 #### Query ledgers
 
