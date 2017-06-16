@@ -24,6 +24,7 @@ class KrakenAPI
     .then (response) ->
       new KrakenResponse response
     .catch (err) ->
-      throw new Error err
+      console.log 'REQUEST ERROR', err unless err.statusCode is 504
+      process.exit 1
 
 module.exports = KrakenAPI
