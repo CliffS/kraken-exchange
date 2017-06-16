@@ -23,8 +23,5 @@ class KrakenAPI
       timeout: TIMEOUT
     .then (response) ->
       new KrakenResponse response
-    .catch (err) ->
-      console.log 'REQUEST ERROR', err unless err.statusCode is 504
-      process.exit 1
 
 module.exports = KrakenAPI
