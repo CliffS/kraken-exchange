@@ -19,7 +19,6 @@ class KrakenResponse extends Property
   fixup: (item) ->
     return item unless item is Object item
     return item if Array.isArray item
-    # console.log 'FIXUP', item
     obj = {}
     for key, val of item
       key = key.replace(/^[XZ]([A-Z]{3})/, '$1').replace /[XZ]([A-Z]{3})$/, '$1'
@@ -30,7 +29,6 @@ class KrakenResponse extends Property
           val.replace(/^[XZ]([A-Z]{3})/, '$1').replace /[XZ]([A-Z]{3})$/, '$1'
         else
           @fixup val
-    # console.log 'FIXED', obj
     obj
 
 module.exports = KrakenResponse
