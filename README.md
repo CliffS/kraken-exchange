@@ -98,7 +98,7 @@ application.
 kraken.profitLoss()
 ```
 
-This will return an object withe the current net profit or loss for
+This will return an object with the current net profit or loss for
 each currency in open positions.
 
 ### Public market data
@@ -255,6 +255,8 @@ The parameters can be a list of currency pairs or a single array can
 be passed.
 
 ### Private user trading
+
+#### Add standard order
 
 ```javascript
 kraken.addOrder(pair, type, ordertype, volume[, price[, price2[, leverage[, closetype[, closeprice[, closeprice2]]]]]])
