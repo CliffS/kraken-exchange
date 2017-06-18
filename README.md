@@ -46,8 +46,8 @@ const PRIV_KEY = 'NZxR7Qyy7vf59fiomB0j1VFVL4J4BAVpKrHmf4hUUQefVFzhlw6as9CScA24cN
 const kraken = new Kraken(API_KEY, PRIV_KEY);
 
 kraken.time()
-.then response => console.log(response);
-.catch err => console.err(err);
+.then(response => console.log(response));
+.catch(err => console.error(err));
 
 ```
 ## Constructor
@@ -69,6 +69,9 @@ All methods return Promises and pass a single result object
 to the `.then()`. Optional parameters are shown within square
 brackets: `[` and `]`.  It may be necessary to pass a `null` for
 some parameters in order to pass later ones.
+
+No errors are caught or reported within the library.  All calls should
+have a `.catch(err)` to pick up the error.
 
 **N.B.** The order of parameters in methods is as below which may differ
 from the Kraken documentation in order to put less-used parameters
