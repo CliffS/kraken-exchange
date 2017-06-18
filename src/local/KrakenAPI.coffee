@@ -1,4 +1,4 @@
-Request = require 'request-promise-native'
+Request = require 'request'
 Path = require 'path'
 { URL } = require 'url'
 
@@ -15,13 +15,15 @@ class KrakenAPI
 
   api: ->
     @headers['User-Agent'] = 'Kraken Exchange Node Client'
-    Request
-      method: 'POST'
-      url: @url
-      headers: @headers
-      form: @form
-      timeout: TIMEOUT
-    .then (response) ->
-      new KrakenResponse response
+    new Promise (resolve, reject) =>
+      Request
+        method: 'POST'
+        url: @url
+        headers: @headers
+        form: @form
+        timeout: TIMEOUT
+      , (err, response, body) =>
+        return reject err if err
+        resolve new KrakenResponse body
 
 module.exports = KrakenAPI
