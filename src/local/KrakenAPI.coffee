@@ -24,6 +24,7 @@ class KrakenAPI
         timeout: TIMEOUT
       , (err, response, body) =>
         return reject err if err
+        return reject response if response.statusCode isnt 200
         resolve new KrakenResponse body
 
 module.exports = KrakenAPI
