@@ -52,7 +52,8 @@ class Kraken
     .then (result) ->
       obj = {}
       for pair, data of result
-        obj[pair] = (parseFloat(data.a[0]) + parseFloat(data.b[0])) / 2
+        val = (parseFloat(data.a[0]) + parseFloat(data.b[0])) / 2
+        obj[pair] = +val.toFixed 8
       obj
 
 
