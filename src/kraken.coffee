@@ -18,17 +18,23 @@ class Kraken
       response.result
 
   assets: (assets...) ->
-    assets = assets[0] if Array.isArray assets[0]
-    assets = assets.join ','
-    krak = new KrakenPublic 'Assets' , asset: assets
+    options = {}
+    if assets?
+      assets = assets[0] if Array.isArray assets[0]
+      assets = assets.join ','
+      options.assets = assets
+    krak = new KrakenPublic 'Assets' , options
     krak.api()
     .then (response) =>
       response.result
 
   assetPairs: (pairs...) ->
-    pairs = pairs[0] if Array.isArray pairs[0]
-    pairs = pairs.join ','
-    krak = new KrakenPublic 'AssetPairs' , pair: pairs
+    options = {}
+    if pairs?
+      pairs = pairs[0] if Array.isArray pairs[0]
+      pairs = pairs.join ','
+      options.pairs = pairs
+    krak = new KrakenPublic 'AssetPairs' , options
     krak.api()
     .then (response) =>
       response.result
