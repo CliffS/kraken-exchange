@@ -13,14 +13,14 @@ k = new Kraken API_KEY, PRIV_KEY
 Promise.all [
   k.time()
   #  k.assets('XBT', 'ETH')
-  #k.assetPairs([ 'XBTEUR', 'ETHEUR'])
+  k.assetPairs([ 'XBTEUR', 'ETHEUR'])
   #k.ticker 'ETHXBT', 'XBTEUR'
-  k.bidAsk 'ETHXBT', 'XBTEUR'
+  #k.bidAsk 'ETHXBT', 'XBTEUR'
   #k.ohlc 'ETHXBT'
   #k.depth('XBTEUR')
   #k.trades('XBTEUR')
   #k.spread('XBTEUR')
-  k.balance()
+  #k.balance()
   #k.tradeBalance('EUR')
   #k.openOrders()
   #k.closedOrders()

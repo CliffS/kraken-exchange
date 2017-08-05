@@ -25,7 +25,7 @@ Thus Euros are always referred to as `EUR` and Bitcoin as `XBT`.
 
 There are a few extra methods that are not provided by the Kraken API.
 These are utility methods which generally give a simplified view of
-another method.  Examples are `kraken.profitloss()` and `kraken.bidAsk()`.
+another method.  Examples are `kraken.profitLoss()` and `kraken.bidAsk()`.
 
 ## Install
 
@@ -95,11 +95,14 @@ application.
 #### Profit and loss on open positions
 
 ```javascript
-kraken.profitLoss()
+kraken.profitLoss(byPair = false)
 ```
 
 This will return an object with the current net profit or loss for
 each currency in open positions.
+
+If `byPair` is passed as `true`, it will return the current net
+profit or loss for each currency pair rather than each currency.
 
 ### Public market data
 

@@ -174,12 +174,12 @@ class Kraken
     .then (response) =>
       response.result
 
-  profitLoss: ->
+  profitLoss: (bypair) ->
     @openPositions true
     .then (result) =>
       profits = {}
       for key, item of result
-        currency = item.pair.substr -3
+        currency = if bypair then item.pair else item.pair.substr -3
         profits[currency] ?= 0
         profits[currency] += parseFloat item.net
       profits
