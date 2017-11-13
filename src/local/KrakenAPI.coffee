@@ -25,9 +25,9 @@ class KrakenAPI
       , (err, response, body) =>
         return reject err if err
         return reject response if response.statusCode isnt 200
-	try
+        try
           resolve new KrakenResponse body
-	catch e
+        catch e
           reject e
 
 module.exports = KrakenAPI
