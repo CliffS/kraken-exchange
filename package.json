@@ -28,9 +28,9 @@
     "url": "https://github.com/CliffS/kraken-exchange/issues"
   },
   "dependencies": {
-    "request": "^2.81.0"
+    "request": "^2.85.0"
   },
   "devDependencies": {
-    "coffeescript": "^2.0.0-beta2"
+    "coffeescript": "^2.3.0"
   }
 }
