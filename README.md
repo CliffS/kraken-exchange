@@ -288,7 +288,7 @@ kraken.depositMethods(asset)
 #### Get deposit addresses
 
 ```javascript
-kraken.depositAddress(asset, method[, newAddress])
+kraken.depositAddresses(asset, method[, newAddress])
 ```
 
 #### Get status of recent deposits
