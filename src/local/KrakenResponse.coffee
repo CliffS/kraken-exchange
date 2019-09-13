@@ -21,12 +21,12 @@ class KrakenResponse extends Property
     return item if Array.isArray item
     obj = {}
     for key, val of item
-      key = key.replace(/^[XZ]([A-Z]{3})/, '$1').replace /[XZ]([A-Z]{3})$/, '$1'
+      key = key.replace(/^[XZ]([A-Z]{3})/, '$1').replace /^([A-Z]{3})[XZ]([A-Z]{3})$/, '$1$2'
       obj[key] = switch key
         when 'asset', 'base', 'quote'
           val.replace /^[XZ]([A-Z]{3})$/, '$1'
         when 'pair'
-          val.replace(/^[XZ]([A-Z]{3})/, '$1').replace /[XZ]([A-Z]{3})$/, '$1'
+          val.replace(/^[XZ]([A-Z]{3})/, '$1').replace /^([A-Z]{3})[XZ]([A-Z]{3})$/, '$1$2'
         else
           @fixup val
     obj
