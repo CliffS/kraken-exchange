@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "coffee -c -w -o lib src &",
-    "compile": "coffee -c -o lib src",
+    "build": "coffee -c -o lib src",
     "prepublishOnly": "npm run-script compile"
   },
   "repository": {
