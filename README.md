@@ -309,6 +309,12 @@ kraken.withdrawInfo(asset, key, amount)
 kraken.withdraw(asset, key, amount)
 ```
 
+#### Wallet Transfer
+
+```javascript
+kraken.walletTransfer(asset, amount)
+```
+
 #### Get status of recent withdrawals
 
 ```javascript
