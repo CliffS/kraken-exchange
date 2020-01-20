@@ -311,7 +311,16 @@ class Kraken
     krak.api()
     .then (response) =>
       response.result
-
+  
+  walletTransfer: (asset, amount) ->
+    params = {
+      asset
+      amount
+    }
+    krak = new KrakenPrivate 'WalletTransfer', @api_key, @private_key, params
+    krak.api()
+    .then (response) =>
+      response.result
 
   withdrawStatus: (asset, method) ->
     params = asset: asset
