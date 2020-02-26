@@ -3,7 +3,7 @@ KrakenPrivate = require './local/KrakenPrivate'
 
 class Kraken
 
-  constructor: (@api_key, @private_key) ->
+  constructor: (@api_key, @private_key) ->      # noqa
 
   ###
   #
@@ -224,11 +224,11 @@ class Kraken
   addOrder: (pair, type, ordertype, volume, price, price2, leverage,
     oflags, starttm, expiretm, userref, valdate,
     closetype, closeprice, closeprice2 ) ->
-    # if the first parameter is an abject, use that as params
+      # if the first parameter is an object, use that as params
     if pair is Object pair
       params = pair
     else
-      params = {
+      params = {        # noqa
       pair
       type
       ordertype
@@ -311,7 +311,7 @@ class Kraken
     krak.api()
     .then (response) =>
       response.result
-  
+
   walletTransfer: (asset, amount) ->
     params = {
       asset

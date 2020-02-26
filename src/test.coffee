@@ -5,15 +5,17 @@ Util = require 'util'
 
 Kraken = require './kraken'
 
-API_KEY = 'Cv4CTzYOrs92QwThlKzjw8yzEwqY5dTeRojViKkVsGLbnXSpYchB68Ib'
-PRIV_KEY = 'D9y6Azn5M5pCpW5eF0Qj26nhMC4aLRlQooBlKH+iYolWAvC/GusVAHNlqPdRl/Zx7rVVk3+Py5ywkapNJgUxwQ=='
+API_KEY = 'gwAidkByRFtjArFt+CkvRSsTZBA0cl034nfKUtx18ij397sE8/2m1C3P'
+PRIV_KEY = 'JG5EWehOp1lo6xu8twrBRpTdLa6f0g1oR6Tiq63yD2eKmRytsYo/t8QdB0BSE5BgsxFoYHYJkFbDhnAW4OVAIQ=='
+
+# coffeelint: disable=no_debugger
 
 k = new Kraken API_KEY, PRIV_KEY
 
 Promise.all [
   k.time()
   #  k.assets('XBT', 'ETH')
-  k.assetPairs([ 'XBTEUR', 'ETHEUR'])
+  #k.assetPairs([ 'XBTEUR', 'ETHEUR'])
   #k.ticker 'ETHXBT', 'XBTEUR'
   #k.bidAsk 'ETHXBT', 'XBTEUR'
   #k.ohlc 'ETHXBT'
@@ -28,7 +30,7 @@ Promise.all [
   #k.tradesHistory 'no position'
   #k.queryTrades 'TZAVYC-W5T5U-IPDVZO'
   k.openPositions()
-  k.profitLoss()
+  #k.profitLoss()
   #k.ledgers()
   #k.queryLedgers 'LEQFDR-QMVZ6-DJMUKM', 'LQ3OO6-PLZ74-DTPYN7'
   #k.tradeVolume 'XBTEUR', 'ETHXBT'
@@ -41,4 +43,4 @@ Promise.all [
   console.log '---------------------------------------------'
   console.log Util.inspect results, depth: null
 .catch (err) =>
-  console.log 'Error:', err
+  console.log err

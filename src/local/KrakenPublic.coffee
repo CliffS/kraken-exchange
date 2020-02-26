@@ -6,4 +6,5 @@ class KrakenPublic extends KrakenAPI
     path = "public/#{method}"
     super path, undefined, params
 
+
 module.exports = KrakenPublic

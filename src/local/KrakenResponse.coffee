@@ -3,10 +3,8 @@ Property = require './Property'
 
 class KrakenResponse extends Property
 
-  constructor: (response) ->
+  constructor: (result) ->
     super()
-    result =  JSON.parse response
-    throw new Error result.error[0] if result.error.length
     @_result = result.result
 
   float: ->
