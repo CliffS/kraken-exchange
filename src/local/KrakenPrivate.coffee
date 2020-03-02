@@ -4,10 +4,8 @@ Crypto = require 'crypto'
 
 # Use the same nonce for all invocations
 NONCE = new Date().valueOf() * 1000
-# NONCE = 1582978752940002
 
 sign = (path, secret, params) ->
-  # console.log arguments
   message = Querystring.stringify params
   secret = Buffer.from secret, 'base64'
   hash = Crypto.createHash 'sha256'
@@ -22,15 +20,9 @@ class KrakenPrivate extends KrakenAPI
 
   api: ->
     @form.nonce = NONCE++
-    # console.log "PATH:", @path
     sig = sign @path, @secret, @form
-    #console.log sig
-    #process.exit 1
     super
       'API-Sign': sig
-      # 'accept-encoding': 'identity'
-
-
 
 
 module.exports = KrakenPrivate
