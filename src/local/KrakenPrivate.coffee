@@ -15,22 +15,14 @@ sign = (path, secret, params) ->
 
 class KrakenPrivate extends KrakenAPI
 
-  constructor: (method, key, secret, params = {}) ->
-    headers =
-      'API-KEY': key
-    path = "private/#{method}"
-    super path, headers, params
-    @key = key
-    @secret = secret
+  constructor: (method, key, @secret, params = {}) ->
+    super "private/#{method}", 'API-KEY': key, params
 
   api: ->
     @form.nonce = NONCE++
-    path = @url.pathname
-    sig = sign path, @secret, @form
-    @headers['API-Sign'] = sig
-    super()
-
-
+    sig = sign @path, @secret, @form
+    super
+      'API-Sign': sig
 
 
 module.exports = KrakenPrivate

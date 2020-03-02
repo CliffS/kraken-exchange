@@ -4,6 +4,8 @@
 [kraken]: https://www.kraken.com/
 [coffee2]: https://coffeescript.org/v2/
 [apikey]: https://www.kraken.com/u/settings/api
+[bent]: https://www.npmjs.com/package/bent
+[request]: https://www.npmjs.com/package/request
 
 ## Access all elements of the Kraken API
 
@@ -11,9 +13,7 @@ This module fully implements the [Kraken][kraken] API.  The
 full documentation for the API is available on the [API help page][api].
 
 It is written in [Coffescript V2][coffee2] using native Promises and
-its only dependencies are [request](https://www.npmjs.com/package/request)
-and its wrapper,
-[request-promise-native](https://www.npmjs.com/package/request-promise-native).
+its only dependency is [bent][bent].
 You do not need Coffeescript to use the library; it is pre-compiled to
 Javascript ES6.
 
@@ -326,6 +326,12 @@ kraken.withdrawStatus(asset[, method])
 ```javascript
 kraken.withdrawCancel(asset, refid)
 ```
+
+## Versions
+
+Version 1.8.0 onwards replaces [request][request] (which has been deprecated)
+with [bent][bent] by the same author.  This has considerably reduced the
+size of this package and of its dependencies.
 
 ## Issues
 
