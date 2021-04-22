@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "bent": "^7.3.12",
-    "form-urlencoded": "^4.2.1"
+    "form-urlencoded": "^6.0.3"
   },
   "devDependencies": {
     "coffeelint": "^2.1.0",
